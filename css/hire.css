@@ -1,0 +1,108 @@
+/* ═══════════════════════════════════════════
+   HIRE ME SECTION
+═══════════════════════════════════════════ */
+
+/* Stats grid (shared by hire + final) */
+.hire-stats-grid {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: .65rem;
+  margin-bottom: 1rem;
+}
+.hire-stat {
+  background: var(--card);
+  border: 1px solid var(--border);
+  border-radius: var(--radius-md);
+  padding: .85rem .65rem;
+  text-align: center;
+}
+.hire-stat-num {
+  font-family: var(--font-display);
+  font-size: 1.6rem;
+  font-weight: 800;
+  color: var(--accent);
+  letter-spacing: -1px;
+  line-height: 1;
+}
+.hire-stat-label { font-size: .65rem; color: var(--muted); margin-top: .3rem; line-height: 1.35; }
+
+/* What I bring */
+.hire-brings { display: flex; flex-direction: column; gap: .9rem; }
+.hire-bring-item {
+  display: flex;
+  gap: .85rem;
+  align-items: flex-start;
+}
+.hire-bring-icon {
+  width: 28px; height: 28px;
+  border-radius: var(--radius-sm);
+  background: rgba(79,142,247,.1);
+  border: 1px solid rgba(79,142,247,.2);
+  display: flex; align-items: center; justify-content: center;
+  font-size: .6rem;
+  color: var(--accent);
+  flex-shrink: 0;
+  margin-top: 2px;
+}
+.hire-bring-title { font-size: .88rem; font-weight: 500; margin-bottom: .2rem; color: var(--text); }
+.hire-bring-desc  { font-size: .78rem; color: var(--muted2); line-height: 1.6; }
+
+/* Stack section */
+.hire-stack-section { display: flex; flex-direction: column; gap: .7rem; }
+.hire-stack-row {
+  display: flex;
+  align-items: flex-start;
+  gap: .75rem;
+}
+.hire-stack-cat {
+  font-size: .68rem;
+  color: var(--muted);
+  text-transform: uppercase;
+  letter-spacing: .1em;
+  min-width: 90px;
+  flex-shrink: 0;
+  padding-top: .25rem;
+}
+
+/* Contact cards */
+.hire-contact-grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: .6rem;
+}
+.hire-contact-card {
+  display: flex;
+  align-items: center;
+  gap: .75rem;
+  background: var(--bg3);
+  border: 1px solid var(--border2);
+  border-radius: var(--radius-md);
+  padding: .85rem 1rem;
+  text-decoration: none;
+  color: var(--text);
+  transition: all .2s;
+  cursor: pointer;
+}
+.hire-contact-card:hover {
+  border-color: var(--accent);
+  background: rgba(79,142,247,.05);
+  transform: translateY(-1px);
+}
+.hire-contact-icon {
+  width: 36px; height: 36px;
+  border-radius: var(--radius-sm);
+  background: rgba(79,142,247,.12);
+  border: 1px solid rgba(79,142,247,.2);
+  display: flex; align-items: center; justify-content: center;
+  font-size: .82rem;
+  color: var(--accent);
+  flex-shrink: 0;
+  font-family: var(--font-display);
+  font-weight: 700;
+}
+.hire-contact-info { flex: 1; min-width: 0; }
+.hire-contact-label { font-size: .63rem; color: var(--muted); text-transform: uppercase; letter-spacing: .12em; margin-bottom: .15rem; }
+.hire-contact-val   { font-size: .78rem; color: var(--muted2); overflow: hidden; text-overflow: ellipsis; white-space: nowrap; }
+.hire-contact-arrow { font-size: .85rem; color: var(--muted); flex-shrink: 0; }
+.hire-contact-card:hover .hire-contact-arrow { color: var(--accent); }
+.hire-contact-card:hover .hire-contact-val   { color: var(--text); }

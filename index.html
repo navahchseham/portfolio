@@ -1,0 +1,552 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Mahesh Chavan — Mission Control</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link href="https://fonts.googleapis.com/css2?family=Syne:wght@400;500;600;700;800&family=JetBrains+Mono:wght@300;400;500;700&display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="css/base.css" />
+  <link rel="stylesheet" href="css/boot.css" />
+  <link rel="stylesheet" href="css/layout.css" />
+  <link rel="stylesheet" href="css/missions.css" />
+  <link rel="stylesheet" href="css/hire.css" />
+  <link rel="stylesheet" href="css/responsive.css" />
+</head>
+<body>
+
+  <!-- ══════════════════════════════════════
+       BOOT SCREEN
+  ══════════════════════════════════════ -->
+  <div id="boot">
+    <div class="boot-inner">
+      <div class="boot-logo">
+        <h1 class="boot-title">MAHESH.OS</h1>
+        <p class="boot-sub">Mission Control &nbsp;·&nbsp; Portfolio v2.1</p>
+      </div>
+      <div class="boot-log" id="bootLog"></div>
+      <button class="boot-btn" id="bootBtn" onclick="launchApp()">
+        Initialize Mission Control &rarr;
+      </button>
+    </div>
+  </div>
+
+  <!-- ══════════════════════════════════════
+       APP SHELL
+  ══════════════════════════════════════ -->
+  <div id="app">
+
+    <!-- TOP BAR -->
+    <header id="topbar">
+      <button class="menu-toggle" id="menuToggle" onclick="toggleSidebar()" aria-label="Toggle menu">
+        <span></span><span></span><span></span>
+      </button>
+      <div class="topbar-logo">MAHESH<span>.OS</span></div>
+      <div class="topbar-right">
+        <div class="topbar-status">
+          <span class="pulse-dot"></span>
+          <span class="status-text">System online</span>
+        </div>
+        <div class="topbar-score" id="scoreDisplay">0 / 5 missions</div>
+      </div>
+    </header>
+
+    <!-- PROGRESS BAR -->
+    <div class="progress-wrap">
+      <span class="progress-label" id="progressLabel">Begin your first mission</span>
+      <div class="progress-track">
+        <div class="progress-fill" id="progressFill" style="width:0%"></div>
+      </div>
+      <span class="progress-pct" id="progressPct">0%</span>
+    </div>
+
+    <!-- SIDEBAR OVERLAY (mobile) -->
+    <div class="sidebar-overlay" id="sidebarOverlay" onclick="closeSidebar()"></div>
+
+    <!-- BODY -->
+    <div id="body-grid">
+
+      <!-- SIDEBAR -->
+      <nav id="sidebar">
+        <div class="sidebar-section">Missions</div>
+
+        <div class="nav-item active" id="nav-0" onclick="gotoPanel(0)">
+          <div class="nav-badge">01</div>
+          <span class="nav-item-label">Latency Challenge</span>
+          <span class="nav-item-xp">+150</span>
+        </div>
+        <div class="nav-item locked" id="nav-1" onclick="gotoPanel(1)">
+          <div class="nav-badge">02</div>
+          <span class="nav-item-label">Architect the System</span>
+          <span class="nav-item-xp">+200</span>
+        </div>
+        <div class="nav-item locked" id="nav-2" onclick="gotoPanel(2)">
+          <div class="nav-badge">03</div>
+          <span class="nav-item-label">Hack the Terminal</span>
+          <span class="nav-item-xp">+250</span>
+        </div>
+        <div class="nav-item locked" id="nav-3" onclick="gotoPanel(3)">
+          <div class="nav-badge">04</div>
+          <span class="nav-item-label">Decode the Timeline</span>
+          <span class="nav-item-xp">+150</span>
+        </div>
+        <div class="nav-item locked" id="nav-4" onclick="gotoPanel(4)">
+          <div class="nav-badge">05</div>
+          <span class="nav-item-label">Tech Stack Quiz</span>
+          <span class="nav-item-xp">+200</span>
+        </div>
+
+        <div class="sidebar-section">More</div>
+        <div class="nav-item" id="nav-profile" onclick="gotoPanel('profile')">
+          <div class="nav-badge nav-badge--avatar">M</div>
+          <span class="nav-item-label">About Me</span>
+        </div>
+        <div class="nav-item" id="nav-hire" onclick="gotoPanel('hire')">
+          <div class="nav-badge nav-badge--hire">H</div>
+          <span class="nav-item-label">Hire Me</span>
+        </div>
+      </nav>
+
+      <!-- MAIN CONTENT -->
+      <main id="main">
+
+        <!-- ─ MISSION 01: LATENCY ─ -->
+        <section class="panel active" id="panel-0">
+          <div class="panel-tag">Mission 01 &nbsp;·&nbsp; Systems Engineering</div>
+          <h2 class="panel-title">Latency Challenge</h2>
+          <p class="panel-desc">My GPU monitoring system achieves sub-100ms latency across 20+ nodes. Tune the architecture sliders to hit production targets and unlock the story behind the build.</p>
+
+          <div class="card">
+            <div class="card-label">Live System Tuning</div>
+            <div class="latency-display">
+              <div class="lat-number-wrap">
+                <span class="lat-number" id="latNum" style="color:var(--red)">820</span>
+                <span class="lat-unit">ms</span>
+              </div>
+              <div class="lat-bar-track"><div class="lat-bar-fill" id="latBar" style="width:100%;background:var(--red)"></div></div>
+              <p class="lat-bar-label" id="latLabel">Production target: &lt;100ms &nbsp;·&nbsp; Currently too slow</p>
+            </div>
+            <div class="slider-group">
+              <div class="slider-row">
+                <label>Nodes monitored</label>
+                <input type="range" min="1" max="30" value="5" step="1" id="sl-nodes" oninput="updateLatency()" />
+                <span class="slider-val" id="sv-nodes">5</span>
+              </div>
+              <div class="slider-row">
+                <label>gRPC streams</label>
+                <input type="range" min="1" max="24" value="1" step="1" id="sl-grpc" oninput="updateLatency()" />
+                <span class="slider-val" id="sv-grpc">1</span>
+              </div>
+              <div class="slider-row">
+                <label>Poll interval</label>
+                <input type="range" min="10" max="500" value="400" step="10" id="sl-poll" oninput="updateLatency()" />
+                <span class="slider-val" id="sv-poll">400ms</span>
+              </div>
+              <div class="slider-row">
+                <label>Goroutines</label>
+                <input type="range" min="1" max="50" value="2" step="1" id="sl-goroutines" oninput="updateLatency()" />
+                <span class="slider-val" id="sv-goroutines">2</span>
+              </div>
+            </div>
+            <div class="lat-actions">
+              <button class="btn btn-primary" id="latBtn" onclick="submitLatency()" disabled>Submit Config</button>
+              <span class="lat-hint" id="latHint">Bring latency below 100ms to unlock</span>
+            </div>
+          </div>
+
+          <div class="reward" id="reward-0">
+            <div class="reward-badge">&#10003; Unlocked &nbsp;·&nbsp; GPU Insight</div>
+            <h3 class="reward-title">Real-Time GPU Monitoring at Scale</h3>
+            <p class="reward-body">I built a lightweight Go agent leveraging goroutines and gRPC streaming to ingest hardware telemetry from 20+ high-performance nodes simultaneously — achieving sub-100ms latency per poll cycle. A 3x throughput improvement over the legacy Python solution, with an alert engine that detects unauthorised GPU access within 5 seconds.</p>
+            <div class="chips">
+              <span class="chip">Go</span><span class="chip">gRPC</span><span class="chip">Goroutines</span>
+              <span class="chip green">20+ nodes</span><span class="chip green">&lt;100ms</span><span class="chip green">3x throughput</span>
+              <span class="chip amber">PostgreSQL</span><span class="chip amber">Docker</span>
+            </div>
+            <button class="btn btn-primary" onclick="completeMission(0)">Next Mission &rarr;</button>
+          </div>
+        </section>
+
+        <!-- ─ MISSION 02: ARCHITECT ─ -->
+        <section class="panel" id="panel-1">
+          <div class="panel-tag">Mission 02 &nbsp;·&nbsp; System Design</div>
+          <h2 class="panel-title">Architect the System</h2>
+          <p class="panel-desc">Drag each technology into the correct layer of my ML deployment platform. Wrong placements are rejected — only the right architecture unlocks the story.</p>
+
+          <div class="card">
+            <div class="card-label">Available Technologies</div>
+            <div class="arch-pool" id="arch-pool">
+              <div class="arch-tag" draggable="true" data-tech="FastAPI" ondragstart="archDragStart(event)">FastAPI</div>
+              <div class="arch-tag" draggable="true" data-tech="Redis" ondragstart="archDragStart(event)">Redis</div>
+              <div class="arch-tag" draggable="true" data-tech="Docker" ondragstart="archDragStart(event)">Docker</div>
+              <div class="arch-tag" draggable="true" data-tech="Kubernetes" ondragstart="archDragStart(event)">Kubernetes</div>
+              <div class="arch-tag" draggable="true" data-tech="gRPC" ondragstart="archDragStart(event)">gRPC</div>
+              <div class="arch-tag" draggable="true" data-tech="PostgreSQL" ondragstart="archDragStart(event)">PostgreSQL</div>
+            </div>
+            <div class="card-label">System Architecture</div>
+            <div class="arch-grid">
+              <div class="arch-slot" id="aslot-0" data-answer="FastAPI" ondragover="archDragOver(event)" ondrop="archDrop(event,0)" ondragleave="archLeave(event)">
+                <span class="arch-slot-name">API Layer</span>
+                <span class="arch-slot-desc">Handles model training requests &amp; job submission</span>
+              </div>
+              <div class="arch-slot" id="aslot-1" data-answer="Redis" ondragover="archDragOver(event)" ondrop="archDrop(event,1)" ondragleave="archLeave(event)">
+                <span class="arch-slot-name">Job Queue &amp; Cache</span>
+                <span class="arch-slot-desc">Distributed queue for 100+ concurrent training jobs</span>
+              </div>
+              <div class="arch-slot" id="aslot-2" data-answer="Docker" ondragover="archDragOver(event)" ondrop="archDrop(event,2)" ondragleave="archLeave(event)">
+                <span class="arch-slot-name">Containerisation</span>
+                <span class="arch-slot-desc">One-command local setup, isolated environments</span>
+              </div>
+              <div class="arch-slot" id="aslot-3" data-answer="Kubernetes" ondragover="archDragOver(event)" ondrop="archDrop(event,3)" ondragleave="archLeave(event)">
+                <span class="arch-slot-name">Orchestration</span>
+                <span class="arch-slot-desc">3 production environments, 99.9% uptime</span>
+              </div>
+            </div>
+            <p class="arch-feedback" id="arch-feedback"></p>
+          </div>
+
+          <div class="reward" id="reward-1">
+            <div class="reward-badge">&#10003; Unlocked &nbsp;·&nbsp; Frontier ML Platform</div>
+            <h3 class="reward-title">ML Deployment from 3 Days to 12 Hours</h3>
+            <p class="reward-body">I designed and shipped Frontier — an end-to-end ML training and deployment platform that compressed time-to-production by 60% across 5+ internal teams. A Redis-backed distributed job queue managed 100+ concurrent training jobs with priority scheduling and auto-retry — zero task loss under peak loads. Docker Compose cut developer onboarding from 2 days to under 2 hours.</p>
+            <div class="chips">
+              <span class="chip">Python</span><span class="chip">FastAPI</span><span class="chip">Redis</span><span class="chip">gRPC</span><span class="chip">Docker</span>
+              <span class="chip green">60% faster deploys</span><span class="chip green">100+ concurrent jobs</span><span class="chip green">Zero task loss</span>
+            </div>
+            <button class="btn btn-primary" onclick="completeMission(1)">Next Mission &rarr;</button>
+          </div>
+        </section>
+
+        <!-- ─ MISSION 03: TERMINAL ─ -->
+        <section class="panel" id="panel-2">
+          <div class="panel-tag">Mission 03 &nbsp;·&nbsp; Backend Mastery</div>
+          <h2 class="panel-title">Hack the Terminal</h2>
+          <p class="panel-desc">You have direct access to my production systems. Explore everything — type <code class="inline-code">help</code> to see all commands, then <code class="inline-code">exit</code> when done.</p>
+
+          <div class="card" style="padding:0;overflow:hidden">
+            <div class="terminal-wrap">
+              <div class="term-titlebar">
+                <div class="term-dot" style="background:#ff5f57"></div>
+                <div class="term-dot" style="background:#febc2e"></div>
+                <div class="term-dot" style="background:#28c840"></div>
+                <span class="term-filename">mahesh@samsung-emb:~$</span>
+              </div>
+              <div class="term-body" id="term-body"></div>
+              <div class="term-input-row">
+                <span class="term-prompt-str">mahesh@os:~$&nbsp;</span>
+                <input class="term-input" id="term-input" placeholder="type a command..." autocomplete="off" spellcheck="false" />
+              </div>
+            </div>
+          </div>
+          <p class="term-hint">Quick shortcuts &rarr;</p>
+          <div class="term-commands" id="term-chips"></div>
+
+          <div class="reward" id="reward-2">
+            <div class="reward-badge">&#10003; Unlocked &nbsp;·&nbsp; Leadership at Scale</div>
+            <h3 class="reward-title">Backend Lead — Zero Breaking Changes, 12 Months</h3>
+            <p class="reward-body">I led a 4-member engineering team delivering a scalable low-code/no-code ML platform cutting onboarding time by 55%. I defined REST API standards resulting in zero breaking changes over 12+ consecutive monthly releases, migrated 8+ microservices to gRPC for a 2.5x throughput improvement, and reduced infrastructure costs by 25% through GCP optimisation.</p>
+            <div class="chips">
+              <span class="chip green">4-member team led</span><span class="chip green">0 breaking changes</span>
+              <span class="chip green">2.5x throughput</span><span class="chip green">25% cost reduction</span>
+              <span class="chip">Kubernetes</span><span class="chip">GCP</span><span class="chip">Agile</span>
+            </div>
+            <button class="btn btn-primary" onclick="completeMission(2)">Next Mission &rarr;</button>
+          </div>
+        </section>
+
+        <!-- ─ MISSION 04: TIMELINE ─ -->
+        <section class="panel" id="panel-3">
+          <div class="panel-tag">Mission 04 &nbsp;·&nbsp; Career Journey</div>
+          <h2 class="panel-title">Decode the Timeline</h2>
+          <p class="panel-desc">My career is a sequence of precise decisions. Click each milestone to reveal the story — open all five to complete this mission.</p>
+
+          <div class="card">
+            <div class="card-label">Career Milestones</div>
+            <div class="timeline">
+              <div class="tl-item" id="tl-0" onclick="openTl(0)">
+                <div class="tl-node"></div>
+                <div class="tl-card">
+                  <div class="tl-meta">2019 — 2023 &nbsp;·&nbsp; Education</div>
+                  <div class="tl-title">B.E. Computer Science &nbsp;·&nbsp; DSCE Bengaluru</div>
+                  <div class="tl-expand">I graduated from Dayananda Sagar College of Engineering with a GPA of 8.12. Built deep foundations in systems programming, data structures, algorithms, and distributed computing. This is where the obsession with building things that actually work at scale began.</div>
+                </div>
+              </div>
+              <div class="tl-item" id="tl-1" onclick="openTl(1)">
+                <div class="tl-node"></div>
+                <div class="tl-card">
+                  <div class="tl-meta">November 2022 &nbsp;·&nbsp; Competition</div>
+                  <div class="tl-title">1st Place — CentuRITon National Hackathon</div>
+                  <div class="tl-expand">Secured first place at M S Ramaiah Institute of Technology against 500+ competing teams, endorsed by Devfolio and MLH. The strategy: ship a working product fast, then iterate. The same philosophy that drives production releases today — move with precision, not just speed.</div>
+                </div>
+              </div>
+              <div class="tl-item" id="tl-2" onclick="openTl(2)">
+                <div class="tl-node"></div>
+                <div class="tl-card">
+                  <div class="tl-meta">August 2023 &nbsp;·&nbsp; Career</div>
+                  <div class="tl-title">Joined Samsung Electro-Mechanics as Software Developer</div>
+                  <div class="tl-expand">Joined Samsung EMC in Bengaluru and immediately began architecting Frontier — the ML deployment platform. Within months the team was shipping production infrastructure used by 5+ internal teams. Frontier alone cut time-to-production from 3 days to under 12 hours.</div>
+                </div>
+              </div>
+              <div class="tl-item" id="tl-3" onclick="openTl(3)">
+                <div class="tl-node"></div>
+                <div class="tl-card">
+                  <div class="tl-meta">H1 2024 &nbsp;·&nbsp; Recognition</div>
+                  <div class="tl-title">Best Employee Award &nbsp;·&nbsp; #1 of 200+ Engineers</div>
+                  <div class="tl-expand">Awarded Best Employee for H1-2024 at Samsung Electro-Mechanics Bangalore, recognising platform delivery impact and cross-team technical leadership. The GPU Insight monitoring system was live, the alert engine was catching real conflicts within 5 seconds, and the team was running at full throughput.</div>
+                </div>
+              </div>
+              <div class="tl-item" id="tl-4" onclick="openTl(4)">
+                <div class="tl-node"></div>
+                <div class="tl-card">
+                  <div class="tl-meta">2024 — Present &nbsp;·&nbsp; Leadership</div>
+                  <div class="tl-title">Promoted to Backend Lead — Within 2 Years</div>
+                  <div class="tl-expand">Accelerated promotion to Backend Lead, recognised for rapid technical mastery and leadership driving high-impact engineering initiatives. Now leading a 4-member team, maintaining 99.9% uptime across 3 production environments, and continuing to push infrastructure cost down while throughput climbs. The mission continues.</div>
+                </div>
+              </div>
+            </div>
+            <p class="tl-progress" id="tl-progress">0 / 5 milestones unlocked</p>
+          </div>
+
+          <div class="reward" id="reward-3">
+            <div class="reward-badge">&#10003; Unlocked &nbsp;·&nbsp; Full Career Arc</div>
+            <h3 class="reward-title">Student to Backend Lead — Four Decisive Years</h3>
+            <p class="reward-body">From college project lead to national hackathon champion to Samsung Backend Lead in under four years. Every transition was intentional — deeper systems knowledge, faster shipping, bigger scope. Two major awards, one national win, and production systems trusted by hundreds of engineers daily.</p>
+            <div class="chips">
+              <span class="chip amber">Best Employee 2024</span><span class="chip amber">1st Place · 500+ teams</span>
+              <span class="chip green">Lead in 2 years</span><span class="chip green">GPA 8.12</span>
+            </div>
+            <button class="btn btn-primary" onclick="completeMission(3)">Next Mission &rarr;</button>
+          </div>
+        </section>
+
+        <!-- ─ MISSION 05: QUIZ ─ -->
+        <section class="panel" id="panel-4">
+          <div class="panel-tag">Mission 05 &nbsp;·&nbsp; Technical Depth</div>
+          <h2 class="panel-title">Tech Stack Quiz</h2>
+          <p class="panel-desc">Three questions about real architectural decisions I made in production. Answer 2 out of 3 correctly to unlock my complete skill profile.</p>
+          <div id="quiz-container"></div>
+          <div class="reward" id="reward-4">
+            <div class="reward-badge">&#10003; Unlocked &nbsp;·&nbsp; Full Skill Profile</div>
+            <h3 class="reward-title">Production-Grade Stack, Top to Bottom</h3>
+            <p class="reward-body">Python, Go, and C# on the language side. Django, FastAPI, and SQLAlchemy for web and ORM. gRPC, Protocol Buffers, REST, and WebSockets for inter-service communication. PostgreSQL and Redis for persistence and caching. Docker, Kubernetes, GCP, and CI/CD for the full production lifecycle.</p>
+            <div class="chips">
+              <span class="chip">Python</span><span class="chip">Go</span><span class="chip">C#</span>
+              <span class="chip">Django</span><span class="chip">FastAPI</span>
+              <span class="chip">gRPC</span><span class="chip">Protobuf</span>
+              <span class="chip">Redis</span><span class="chip">PostgreSQL</span>
+              <span class="chip amber">Docker</span><span class="chip amber">Kubernetes</span><span class="chip amber">GCP</span>
+            </div>
+            <button class="btn btn-primary" onclick="completeMission(4)">View Final Report &rarr;</button>
+          </div>
+        </section>
+
+        <!-- ─ PROFILE ─ -->
+        <section class="panel" id="panel-profile">
+          <div class="panel-tag">Profile &nbsp;·&nbsp; Mahesh Chavan</div>
+          <h2 class="panel-title">Hi, I'm Mahesh &nbsp;·&nbsp; Software Engieer, Bengaluru</h2>
+          <p class="panel-desc">I build distributed systems that scale — GPU monitoring, ML deployment platforms, and microservice infrastructure at Samsung Electro-Mechanics.</p>
+          <div class="profile-grid">
+            <div class="profile-card">
+              <div class="avatar">M</div>
+              <div class="profile-card-label">Contact</div>
+              <div class="profile-card-val">
+                <a href="mailto:dscsmaheshchavan@gmail.com" class="contact-link">dscsmaheshchavan@gmail.com</a><br/>
+                <a href="tel:+917676604917" class="contact-link">+91 76766 04917</a><br/>
+                <a href="https://linkedin.com/in/maheshchavan-/" target="_blank" class="contact-link">linkedin.com/in/maheshchavan-/</a>
+              </div>
+            </div>
+            <div class="profile-card">
+              <div class="profile-card-label">Current Role</div>
+              <div class="profile-card-val">
+                <strong>Software Engineer(Backend Lead)</strong><br/>
+                Samsung Electro-Mechanics<br/>
+                Aug 2023 – Present · Bengaluru
+              </div>
+            </div>
+            <div class="profile-card profile-card--full">
+              <div class="profile-card-label">Education</div>
+              <div class="profile-card-val">
+                <strong>B.E. Computer Science &amp; Engineering</strong> — GPA 8.12<br/>
+                Dayananda Sagar College of Engineering · 2019 – 2023<br/><br/>
+                <strong>Class XII</strong> — 83%<br/>
+                Kendriya Vidyalaya Sangathan · 2018 – 2019
+              </div>
+            </div>
+          </div>
+        </section>
+
+        <!-- ─ HIRE ME ─ -->
+        <section class="panel" id="panel-hire">
+          <div class="panel-tag">Hire Me &nbsp;·&nbsp; Let's Build Something Great</div>
+          <h2 class="panel-title">Open to New Opportunities</h2>
+          <p class="panel-desc">I'm a Backend Lead with 2+ years at Samsung EMC — shipping production-grade distributed systems, leading engineering teams, and consistently delivering measurable impact. Looking for roles where systems thinking and execution velocity matter.</p>
+
+          <!-- Stats -->
+          <div class="hire-stats-grid">
+            <div class="hire-stat">
+              <div class="hire-stat-num">2+</div>
+              <div class="hire-stat-label">Years at Samsung EMC</div>
+            </div>
+            <div class="hire-stat">
+              <div class="hire-stat-num">20+</div>
+              <div class="hire-stat-label">Nodes monitored</div>
+            </div>
+            <div class="hire-stat">
+              <div class="hire-stat-num">#1</div>
+              <div class="hire-stat-label">Best Employee H1-2024</div>
+            </div>
+            <div class="hire-stat">
+              <div class="hire-stat-num">500+</div>
+              <div class="hire-stat-label">Hackathon teams beaten</div>
+            </div>
+          </div>
+
+          <!-- What I bring -->
+          <div class="card" style="margin-bottom:1rem">
+            <div class="card-label">What I Bring</div>
+            <div class="hire-brings">
+              <div class="hire-bring-item">
+                <div class="hire-bring-icon">&#9650;</div>
+                <div>
+                  <div class="hire-bring-title">Distributed Systems</div>
+                  <div class="hire-bring-desc">I use goroutines, gRPC, and microservices to build real-time telemetry systems at sub-100ms latency across 20+ nodes.</div>
+                </div>
+              </div>
+              <div class="hire-bring-item">
+                <div class="hire-bring-icon">&#9650;</div>
+                <div>
+                  <div class="hire-bring-title">Platform Engineering</div>
+                  <div class="hire-bring-desc">I've shipped end-to-end ML deployment platforms, Kubernetes orchestration, and maintained 99.9% uptime across 3 production environments.</div>
+                </div>
+              </div>
+              <div class="hire-bring-item">
+                <div class="hire-bring-icon">&#9650;</div>
+                <div>
+                  <div class="hire-bring-title">Engineering Leadership</div>
+                  <div class="hire-bring-desc">I've led 4-member teams, defined API standards with zero breaking changes over 12+ monthly releases, and cut infra costs by 25%.</div>
+                </div>
+              </div>
+              <div class="hire-bring-item">
+                <div class="hire-bring-icon">&#9650;</div>
+                <div>
+                  <div class="hire-bring-title">Shipping Velocity</div>
+                  <div class="hire-bring-desc">1st place in a national hackathon, promoted to Backend Lead in 2 years, Best Employee award — I build fast and build right.</div>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <!-- Stack -->
+          <div class="card" style="margin-bottom:1rem">
+            <div class="card-label">Tech Stack</div>
+            <div class="hire-stack-section">
+              <div class="hire-stack-row">
+                <span class="hire-stack-cat">Languages</span>
+                <div class="chips" style="margin:0">
+                  <span class="chip">Python</span><span class="chip">Go</span><span class="chip">C#</span>
+                </div>
+              </div>
+              <div class="hire-stack-row">
+                <span class="hire-stack-cat">Frameworks</span>
+                <div class="chips" style="margin:0">
+                  <span class="chip">Django</span><span class="chip">FastAPI</span><span class="chip">SQLAlchemy</span>
+                </div>
+              </div>
+              <div class="hire-stack-row">
+                <span class="hire-stack-cat">Architecture</span>
+                <div class="chips" style="margin:0">
+                  <span class="chip">gRPC</span><span class="chip">REST</span><span class="chip">WebSockets</span><span class="chip">Protobuf</span><span class="chip">Microservices</span>
+                </div>
+              </div>
+              <div class="hire-stack-row">
+                <span class="hire-stack-cat">Databases</span>
+                <div class="chips" style="margin:0">
+                  <span class="chip amber">PostgreSQL</span><span class="chip amber">Redis</span>
+                </div>
+              </div>
+              <div class="hire-stack-row">
+                <span class="hire-stack-cat">DevOps</span>
+                <div class="chips" style="margin:0">
+                  <span class="chip green">Docker</span><span class="chip green">Kubernetes</span><span class="chip green">GCP</span><span class="chip green">CI/CD</span><span class="chip green">Linux</span>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <!-- Contact -->
+          <div class="card">
+            <div class="card-label">Get in Touch</div>
+            <div class="hire-contact-grid">
+              <a href="mailto:dscsmaheshchavan@gmail.com" class="hire-contact-card">
+                <div class="hire-contact-icon">&#9993;</div>
+                <div class="hire-contact-info">
+                  <div class="hire-contact-label">Email</div>
+                  <div class="hire-contact-val">dscsmaheshchavan@gmail.com</div>
+                </div>
+                <div class="hire-contact-arrow">&#8599;</div>
+              </a>
+              <a href="tel:+917676604917" class="hire-contact-card">
+                <div class="hire-contact-icon">&#9990;</div>
+                <div class="hire-contact-info">
+                  <div class="hire-contact-label">Phone</div>
+                  <div class="hire-contact-val">+91 76766 04917</div>
+                </div>
+                <div class="hire-contact-arrow">&#8599;</div>
+              </a>
+              <a href="https://linkedin.com/in/maheshchavan-/" target="_blank" class="hire-contact-card">
+                <div class="hire-contact-icon">in</div>
+                <div class="hire-contact-info">
+                  <div class="hire-contact-label">LinkedIn</div>
+                  <div class="hire-contact-val">linkedin.com/in/maheshchavan-/</div>
+                </div>
+                <div class="hire-contact-arrow">&#8599;</div>
+              </a>
+              <a href="https://github.com/Mahesh29501/" target="_blank" class="hire-contact-card">
+                <div class="hire-contact-icon">gh</div>
+                <div class="hire-contact-info">
+                  <div class="hire-contact-label">GitHub</div>
+                  <div class="hire-contact-val">github.com/Mahesh29501/</div>
+                </div>
+                <div class="hire-contact-arrow">&#8599;</div>
+              </a>
+            </div>
+          </div>
+        </section>
+
+        <!-- ─ FINAL / ALL MISSIONS DONE ─ -->
+        <section class="panel" id="panel-final">
+          <div class="final-inner">
+            <div class="final-icon">&#10003;</div>
+            <h2 class="final-title">All Missions Complete</h2>
+            <p class="final-sub">You've explored my systems, architecture decisions, career journey, and technical depth. Here's the complete picture — let's connect.</p>
+
+            <div class="hire-stats-grid" style="margin-bottom:2rem">
+              <div class="hire-stat"><div class="hire-stat-num">2+</div><div class="hire-stat-label">Years at Samsung</div></div>
+              <div class="hire-stat"><div class="hire-stat-num">20+</div><div class="hire-stat-label">Nodes monitored</div></div>
+              <div class="hire-stat"><div class="hire-stat-num">#1</div><div class="hire-stat-label">Best Employee 2024</div></div>
+              <div class="hire-stat"><div class="hire-stat-num">500+</div><div class="hire-stat-label">Teams beaten</div></div>
+            </div>
+
+            <div class="final-cta">
+              <a href="mailto:dscsmaheshchavan@gmail.com" class="btn btn-primary">Send Email &rarr;</a>
+              <a href="tel:+917676604917" class="btn btn-ghost">Call Me</a>
+              <a href="https://linkedin.com/in/maheshchavan-/" target="_blank" class="btn btn-ghost">LinkedIn</a>
+              <a href="https://github.com/Mahesh29501/" target="_blank" class="btn btn-ghost">GitHub</a>
+              <button class="btn btn-replay" onclick="replayAll()">Replay Missions</button>
+            </div>
+          </div>
+        </section>
+
+      </main>
+    </div>
+  </div>
+
+  <script src="js/boot.js"></script>
+  <script src="js/nav.js"></script>
+  <script src="js/mission-latency.js"></script>
+  <script src="js/mission-architect.js"></script>
+  <script src="js/mission-terminal.js"></script>
+  <script src="js/mission-timeline.js"></script>
+  <script src="js/mission-quiz.js"></script>
+</body>
+</html>

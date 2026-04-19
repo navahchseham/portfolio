@@ -1,0 +1,81 @@
+/* ═══════════════════════════════════════════
+   RESPONSIVE — Tablet & Mobile
+═══════════════════════════════════════════ */
+
+/* ── TABLET (≤900px) ── */
+@media (max-width: 900px) {
+  :root { --sidebar-w: 220px; }
+  .status-text { display: none; }
+  .hire-stats-grid { grid-template-columns: repeat(2, 1fr); }
+  .hire-contact-grid { grid-template-columns: 1fr; }
+}
+
+/* ── MOBILE (≤680px) — sidebar slides in as drawer ── */
+@media (max-width: 680px) {
+  :root { --sidebar-w: 260px; }
+
+  .menu-toggle { display: flex; }
+  .status-text { display: none; }
+
+  /* sidebar becomes fixed drawer */
+  #body-grid { grid-template-columns: 1fr; }
+  #sidebar {
+    position: fixed;
+    top: 0; left: 0; bottom: 0;
+    z-index: 95;
+    transform: translateX(-100%);
+    transition: transform .3s cubic-bezier(.4,0,.2,1);
+    height: 100vh;
+    padding-top: 1.5rem;
+  }
+  #sidebar.open { transform: translateX(0); }
+  .sidebar-overlay.open { display: block; }
+
+  #main { height: calc(100vh - 89px); }
+
+  .panel { padding: 1.25rem; }
+  .panel-title { font-size: 1.5rem; }
+
+  /* Latency slider labels shorter on mobile */
+  .slider-row { grid-template-columns: 90px 1fr 52px; }
+  .slider-row label { font-size: .72rem; }
+
+  /* Arch grid single column */
+  .arch-grid { grid-template-columns: 1fr; }
+
+  /* Profile grid single column */
+  .profile-grid { grid-template-columns: 1fr; }
+  .profile-card--full { grid-column: 1; }
+
+  /* Hire stats 2 cols */
+  .hire-stats-grid { grid-template-columns: repeat(2, 1fr); }
+
+  /* Hire stack cat shorter */
+  .hire-stack-cat { min-width: 70px; font-size: .62rem; }
+
+  /* Hire contact 1 col */
+  .hire-contact-grid { grid-template-columns: 1fr; }
+
+  /* Final CTA wrap nicely */
+  .final-cta { flex-direction: column; align-items: center; }
+  .final-cta .btn { width: 100%; max-width: 280px; justify-content: center; }
+
+  /* Terminal */
+  .term-body { min-height: 180px; max-height: 240px; font-size: .72rem; }
+  .term-input { font-size: .72rem; }
+  .term-commands { gap: .3rem; }
+  .term-cmd-chip { font-size: .62rem; padding: .18rem .5rem; }
+
+  /* Boot */
+  .boot-title { font-size: 2.8rem; }
+  .boot-btn   { font-size: .82rem; padding: .7rem 1.8rem; }
+}
+
+/* ── VERY SMALL (≤380px) ── */
+@media (max-width: 380px) {
+  .panel { padding: 1rem; }
+  .panel-title { font-size: 1.3rem; }
+  .hire-stats-grid { grid-template-columns: repeat(2, 1fr); gap: .5rem; }
+  .hire-stat-num { font-size: 1.3rem; }
+  .topbar-score { font-size: .7rem; }
+}
